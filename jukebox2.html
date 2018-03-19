@@ -42,31 +42,34 @@
     <div class="button-obj">
         <button class="searchbutton">Search for Music</button>
     </div>
-    <button id="play">Play</button>
-    <button id="pause">Pause</button>
-    <button id="stop">Stop</button>
+    <button id="play" onclick="jukebox.play();">Play</button>
+    <button id="pause" onclick="jukebox.pause();" ">Pause</button>
+    <button id="stop " onclick="jukebox.stop(); "">Stop</button>
     </div>
     <script type="text/javascript">
-    var initialize = function initialize() {
-        SC.initialize({
-                client_id: f665fc458615b821cdf1a26b6d1657f6
-            }
+    //var initialize = function initialize() {
+    //    SC.initialize({
+    //        client_id: f665fc458615b821cdf1a26b6d1657f6
+    //    })
+    //};
 
-        )
-    };
+    jukebox = {
+        search: function() {
+            SC.get("/tracks", {
+                q: " "
+            }).then(function(response) {
+                // things to do after the tracks load...
+                console.log(response);
+            });
+        },
 
-    function search() {
-        SC.get('/tracks/124861366').then(function(response) {
-            player.play();
-            console.log(response);
-        })
-    };
 
-
-
-    var play = SC.stream('/tracks/124861366').then(function(player) {
-        player.play();
-    });
+        play: function() {
+            SC.stream('/tracks/124861366').then(function(player) {
+                player.play();
+            })
+        }
+    }
     </script>
 </body>
 
