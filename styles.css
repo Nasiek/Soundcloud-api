@@ -15,6 +15,6 @@ img {
     display: block;
 }
 
-input {
+input.placeholder {
 	color: lightgrey;
 }
