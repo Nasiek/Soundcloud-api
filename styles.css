@@ -18,3 +18,7 @@ img {
 input.placeholder {
 	color: lightgrey;
 }
+
+#results-box {
+	background-color: lightgrey;
+}
