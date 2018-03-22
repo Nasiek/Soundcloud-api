@@ -86,19 +86,24 @@
                     var para = document.createElement('li');
                     var songinfo = document.createTextNode("Name of Track:" + " " + trackname);
                     document.getElementById("results-box").appendChild(para);
-                    para.innerHTML = "<a href=\"\">" + " Name of Track:" + trackname + "</a>";
-                    //para.appendChild(songinfo);
-                    //document.querySelector("li");
-                    //var results_box = document.getElementBy('results-box');
-
+                    para.innerHTML = "<a href=\"\">" + " Name of Track:" + trackname + "</a>"
                 };
+                [document.querySelectorAll('results-box a')].forEach(function() {
+                    addEventListener("click", function(event) { event.preventDefault() });
+                });
 
+                //document.querySelectorAll('#results-box a').addEventListener("click", function(event) { event.preventDefault() });
+
+                //para.appendChild(songinfo);
+                //document.querySelector("li");
+                //var results_box = document.getElementBy('results-box');
 
             });
         },
 
 
-         //var classname = li.classname ="song-result";
+
+        //var classname = li.classname ="song-result";
         //li.appendChild(document.createTextNode(trackname));
         //var link = document.createElement('a');
         //link.classname = "songclicker";
