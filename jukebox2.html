@@ -65,7 +65,7 @@
     var musicobject;
     var songs = [];
     var currentSong = 0;
-
+    var myPlayer;
     var jukebox = {
         search: function() {
             var searchterm = document.getElementById("input").value;
@@ -102,6 +102,8 @@
                     SC.stream('/tracks/' + generatedsongid).then(function(player) {
                         console.log(player);
                         player.play();
+                        myPlayer = player;
+                        console.log("whatis this",myPlayer);
 
                     });
 
@@ -113,9 +115,10 @@
         },
 
         
-        
         playnext: function playNext() {  
-        SC.stream( '/tracks/' + songs[currentSong].id ).then(function(player){    player.play();    player.on("finish",function(){      
+        SC.stream( '/tracks/' + songs[currentSong].id ).then(function(player){    
+            player.play();    
+            player.on("finish",function(){      
         currentSong += 1;       
         playNext();           
     });  
@@ -123,9 +126,12 @@
     },
 
 
-        pause: function pauseSong() {
-            document.getElementById('pause').addEventListener('onclick')
-            myPlayer.pause();
+         pause: function pausesong() {
+            streamer = myPlayer;
+            streamer.pause();
+        },
+        play: function playsong(){
+            myPlayer.play();
         }
     }
     </script>
