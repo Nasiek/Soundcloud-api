@@ -36,6 +36,9 @@
             </h1>
             </div>
     </header>
+    <div class="gif_border">
+    <img id="giphy" src="http://media.giphy.com/media/l3q2DScd44jwBjpSg/giphy.gif">
+    </div>
     <div class="searchbar">
         <input type="text" id="input" placeholder="song, artist, album...">
     </div>
@@ -48,16 +51,16 @@
     <button id="pause" onclick="jukebox.pause();">Pause</button>
     <button id="stop " onclick="jukebox.stop(); "">Stop</button>
     </div>
+    
     <div id="results-container">
         <div id="results-box">
-            <p>Webpage URL</p>
             <p id="results-description">
                 <strong> Search Results</strong>
             </p>
             <ol id="obj_results">
             </ol>
         </div>
-        <!--<img src="">-->
+        
     </div>
     <script type="text/javascript">
     
@@ -96,14 +99,22 @@
             });
             generatedsongs.forEach(function() {
                 addEventListener("click", function(generatedsongs) {
-                    
+                    console.log("?????????" + generatedsongs);
                     var generatedsongid = generatedsongs.path[0].id;
+                    var imgurl = generatedsongs
                     console.log("trackid", generatedsongid);
                     SC.stream('/tracks/' + generatedsongid).then(function(player) {
                         console.log(player);
                         player.play();
                         myPlayer = player;
                         console.log("whatis this",myPlayer);
+                        //var changeimage=document.getElementById("giphy").src = .artwork_url;
+                        console.log(changeimage,"changeimage")
+                        changeimage;
+                        if (generatedsongs.artwork_url == null){
+                            !changeimage;
+                        }
+
 
                     });
 

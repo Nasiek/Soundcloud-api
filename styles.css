@@ -16,9 +16,18 @@ img {
 }
 
 input.placeholder {
-	color: lightgrey;
+    color: lightgrey;
 }
 
 #results-box {
-	background-color: lightgrey;
+    background-color: lightgrey;
+    width: 80%;
+}
+
+#giphy {
+    width: 250px;
+    height: auto;
+    /*display: none;*/
+    position: fixed;
+    margin-left: 1150px;
 }
