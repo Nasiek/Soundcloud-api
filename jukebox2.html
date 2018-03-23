@@ -41,11 +41,11 @@
     </div>
     <div class="button-obj">
         <button class="searchbutton" onclick="jukebox.search();">Search Trackname</button>
-        <button class="searchbutton2" onclick="jukebox.searchgenre();">Search by Genre</button>
+        <button class="searchbutton2" onclick="jukebox.playnext();">Play Next</button>
         <button class="searchbutton3" onclick="jukebox.searchtrackid();">Search by Track ID</button>
     </div>
     <button id="play" onclick="jukebox.play();">Play</button>
-    <button id="pause" onclick="jukebox.pause();" ">Pause</button>
+    <button id="pause" onclick="jukebox.pause();">Pause</button>
     <button id="stop " onclick="jukebox.stop(); "">Stop</button>
     </div>
     <div id="results-container">
@@ -60,13 +60,11 @@
         <!--<img src="">-->
     </div>
     <script type="text/javascript">
-    //var initialize = function initialize() {
-    //    SC.initialize({
-    //        client_id: f665fc458615b821cdf1a26b6d1657f6
-    //    })
-    //};
+    
     var searchterm = null;
     var musicobject;
+    var songs = [];
+    var currentSong = 0;
 
     var jukebox = {
         search: function() {
@@ -86,155 +84,52 @@
                     var para = document.createElement('li');
                     var songinfo = document.createTextNode("Name of Track:" + " " + trackname);
                     document.getElementById("results-box").appendChild(para);
-                    para.innerHTML = "<a href=\"\">" + " Name of Track:" + trackname + "</a>"
+                    para.innerHTML = "<a id =\"" + trackid + "\" href=\"\">" + " Name of Track:" + trackname + "</a>"
                 };
-                [document.querySelectorAll('results-box a')].forEach(function() {
-                    addEventListener("click", function(event) { event.preventDefault() });
-                });
-
-                //document.querySelectorAll('#results-box a').addEventListener("click", function(event) { event.preventDefault() });
-
-                //para.appendChild(songinfo);
-                //document.querySelector("li");
-                //var results_box = document.getElementBy('results-box');
-
+                
+                console.log("parainnerhtml", para.innerHTML);
+                
             });
+            var generatedsongs = [document.querySelectorAll('results-box a')]
+            generatedsongs.forEach(function() {
+                addEventListener("click", function(event) { event.preventDefault() });
+            });
+            generatedsongs.forEach(function() {
+                addEventListener("click", function(generatedsongs) {
+                    
+                    var generatedsongid = generatedsongs.path[0].id;
+                    console.log("trackid", generatedsongid);
+                    SC.stream('/tracks/' + generatedsongid).then(function(player) {
+                        console.log(player);
+                        player.play();
+
+                    });
+
+
+
+                });
+            });
+
         },
 
+        
+        
+        playnext: function playNext() {  
+        SC.stream( '/tracks/' + songs[currentSong].id ).then(function(player){    player.play();    player.on("finish",function(){      
+        currentSong += 1;       
+        playNext();           
+    });  
+    });
+    },
 
 
-        //var classname = li.classname ="song-result";
-        //li.appendChild(document.createTextNode(trackname));
-        //var link = document.createElement('a');
-        //link.classname = "songclicker";
-        //link.innerHTML = '<'
-        //var linktag = li.appendChild(document.createTextNode("<a href=\"\">"+" \""+trackname+"\""));
-
-
-        //var clicky = link.href="";
-
-        //var hyperlink = para.appendChild(clicky); 
-
-
-
-
-
-        //var hyperlink =para.appendChild.link;
-        //console.log("hi" +hyperlink);
-        //hyperlink;
-
-        //var linktosong = hyperlink.appendChild(songinfo);
-        //linktosong;
-        //link.appendChild(songinfo);
-        //var linkinDOM= document.getElementById("results-box").appendChild(hyperlink);
-        //linktosong;
-        //console.log(linktosong);
-        //console.log(linkinDOM);
-        //linkinDOM;
-
-
-        //},
-        /*if (createdp == true) {
-            var link = document.createElement('p');
-            var linkText = songinfo;
-            link.appendChild(linkText);
-            link.title = "songinfo";
-            link.href = "";
-            link.appendChild(songinfo);
-            document.getElementById("results-box").appendChild(link)
+        pause: function pauseSong() {
+            document.getElementById('pause').addEventListener('onclick')
+            myPlayer.pause();
         }
-        var createdp = document.getElementById("results-box").appendChild(para);*/
-
-
-        //console.log(musicobject[i].id)
-
-        //document.getElementById("results-description").innerHTML = musicobject[0].id;
-        //musicobject = response;
-        //console.log(musicobject[i].id);
-        //console.log(response);
-
-
-
-        searchgenre: function() {
-            var searchterm = document.getElementById("input").value;
-            SC.get("/tracks", {
-                q: searchterm
-            }).then(function(response) {
-                    musicobject = response;
-
-                    for (i = 0; i < musicobject.length; i++) {
-                        console.log("hello");
-                        //console.log(musicobject[i]);
-                        console.log(musicobject[i].id);
-                        //console.log(musicobject[i].title);
-                        console.log(musicobject[i].genre);
-                        var trackid = musicobject[i].id;
-                        trackname = musicobject[i].title;
-                        genre = musicobject[i].genre;
-                        var para = document.createElement('p');
-                        var songgenre = document.createTextNode(genre + ", " + trackid + ", " + trackname);
-                        para.appendChild(songgenre);
-                        document.getElementById("results-box").appendChild(para);
-                    }
-                    //console.log(musicobject[i].id)
-                }
-                //document.getElementById("results-description").innerHTML = musicobject[0].id;
-                //musicobject = response;
-                //console.log(musicobject[i].id);
-                //console.log(response);
-
-            );
-        },
-
-        searchtrackid: function() {
-            var searchterm = document.getElementById("input").value;
-            SC.get("/tracks" + searchterm, {
-                q: searchterm
-            }).then(function(response) {
-                    musicobject = response;
-
-                    for (i = 0; i < musicobject.length; i++) {
-                        console.log("hello");
-                        console.log(musicobject[i]);
-                        console.log(musicobject[i].id);
-                        console.log(musicobject[i].title);
-                        var trackid = musicobject[i].id;
-                        trackname = musicobject[i].title;
-                        var para = document.createElement('p');
-                        var songinfo = document.createTextNode(trackid + ", " + trackname);
-                        para.appendChild(songinfo);
-                        document.getElementById("results-box").appendChild(para);
-
-                    }
-                    //console.log(musicobject[i].id)
-                }
-                //document.getElementById("results-description").innerHTML = musicobject[0].id;
-                //musicobject = response;
-                //console.log(musicobject[i].id);
-                //console.log(response);
-
-            );
-        },
-    };
-
-
-
-
-
-    //returnresults: function() {
-    //    //document.getElementById("returnresults").innerHTML =
-    //    for (i = 0; i <= musicobject.length; i++) {
-    //        document.getElementById("returnresults").innerHTML =
-    //            musicobject[i].title;
-    //    }
-    //},
-
-    //        play: function() {
-    //
-    //          SC.stream('/tracks/' + trackid).then(function(player) {
-    //            player.play();
-    //      })
+    }
     </script>
+   
 </body>
 
 </html>
