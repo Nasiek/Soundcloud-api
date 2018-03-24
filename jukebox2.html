@@ -84,13 +84,16 @@
                     console.log(musicobject[i].title);
                     var trackid = musicobject[i].id;
                     trackname = musicobject[i].title;
+                    var albumart= musicobject[i].artwork_url;
                     var para = document.createElement('li');
                     var songinfo = document.createTextNode("Name of Track:" + " " + trackname);
                     document.getElementById("results-box").appendChild(para);
-                    para.innerHTML = "<a id =\"" + trackid + "\" href=\"\">" + " Name of Track:" + trackname + "</a>"
-                };
+                    para.innerHTML = "<a id =\"" + trackid +"\"" + "data-name=\""+ albumart+"\"" +" " + "href=\"\">" + " Name of Track:" + trackname + "</a>"
+                    //var extradetails = para.innerHTML.appendChild(artwork_url);
+                    //console.log("extradetails",extradetails);
+
+};
                 
-                console.log("parainnerhtml", para.innerHTML);
                 
             });
             var generatedsongs = [document.querySelectorAll('results-box a')]
@@ -99,21 +102,34 @@
             });
             generatedsongs.forEach(function() {
                 addEventListener("click", function(generatedsongs) {
-                    console.log("?????????" + generatedsongs);
-                    var generatedsongid = generatedsongs.path[0].id;
-                    var imgurl = generatedsongs
+                    console.log("?????????", generatedsongs); //just the mouse event
+                    var generatedsongid = generatedsongs.path[0].id; // working now                     
+                    //console.log("generatedsongid");
+                    //var generatedsongalbum = generatedsongs.target.attributes.nodeValue;
+                    var generatedsongalbum = generatedsongs.target.dataset.name; // Eureka!
+                    console.log("!!!!!!!",generatedsongalbum);
+                    //var imgurlpath = generatedsongs.path[7];//.SC]//.SC.musicobject].artwork_url;
+                    //console.log(imgurlpath);
+                    //console.log(imgurlpath.includes("artwork_url"));
+
+                    //console.log(imgurlpath);
+                    //imgurl = imgurlpath[0].SC;
+                    //console.log(imgurl);
+                    //view.musicobject//.forEach(function{
+                        //console.log(*);
+                   // })
                     console.log("trackid", generatedsongid);
                     SC.stream('/tracks/' + generatedsongid).then(function(player) {
                         console.log(player);
                         player.play();
                         myPlayer = player;
                         console.log("whatis this",myPlayer);
-                        //var changeimage=document.getElementById("giphy").src = .artwork_url;
+                        var changeimage=document.getElementById("giphy").src = generatedsongalbum;
                         console.log(changeimage,"changeimage")
                         changeimage;
-                        if (generatedsongs.artwork_url == null){
-                            !changeimage;
-                        }
+                        // if (generatedsongs.artwork_url == null){
+                        //     !changeimage;
+                        // }
 
 
                     });
