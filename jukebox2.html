@@ -85,10 +85,23 @@
                     var trackid = musicobject[i].id;
                     trackname = musicobject[i].title;
                     var albumart= musicobject[i].artwork_url;
+                    var desc = musicobject[i].desciption;
+                    var genre= musicobject[i].genre;
+                    var releasedobject = musicobject[i].created_at;
+                    var split = releasedobject.split(" ");
+                    var released = split[0];
+                    user = musicobject[i].user.username;
+                    userurl = musicobject[i].user.permalink_url;
+                    console.log(user);
+                    ////////////////////////////////////////////
                     var para = document.createElement('li');
-                    var songinfo = document.createTextNode("Name of Track:" + " " + trackname);
+                    var songinfo = document.createTextNode("Name of Track:" + " " + trackname, "Year:");
+                    var para2 = document.createElement('li');
+                    var songinfo2 = document.createTextNode("Artist:"+""+"Desc:"+ ""+ "Genre:" + ""+ "Released:"+"")
                     document.getElementById("results-box").appendChild(para);
+                    document.getElementById("results-box").appendChild(para2);
                     para.innerHTML = "<a id =\"" + trackid +"\"" + "data-name=\""+ albumart+"\"" +" " + "href=\"\">" + " Name of Track:" + trackname + "</a>"
+                    para2.innerHTML ="Artist: "+ "<a href=\""+userurl+"\""+">"+user+"</a>"+" | "+"Desc: "+ desc+" | "+ "Genre: " +genre +" | "+ "Released: "+ released;
                     //var extradetails = para.innerHTML.appendChild(artwork_url);
                     //console.log("extradetails",extradetails);
 
@@ -96,7 +109,7 @@
                 
                 
             });
-            var generatedsongs = [document.querySelectorAll('results-box a')]
+            var generatedsongs = [document.querySelectorAll('results-box a')];
             generatedsongs.forEach(function() {
                 addEventListener("click", function(event) { event.preventDefault() });
             });
@@ -127,9 +140,10 @@
                         var changeimage=document.getElementById("giphy").src = generatedsongalbum;
                         console.log(changeimage,"changeimage")
                         changeimage;
-                        // if (generatedsongs.artwork_url == null){
-                        //     !changeimage;
+                        // if (document.getElementById("giphy").src = "null" || null){
+                        //     document.getElementById("giphy").src = "http://media.giphy.com/media/l3q2DScd44jwBjpSg/giphy.gif";
                         // }
+                        // else {changeimage};
 
 
                     });

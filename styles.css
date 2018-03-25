@@ -31,7 +31,7 @@ input.placeholder {
 #giphy {
     width: 250px;
     height: auto;
-    /*display: none;*/
+    display: block;
     position: fixed;
-    margin-left: 1150px;
+    margin-left: 78%;
 }
