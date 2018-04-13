@@ -3,8 +3,13 @@ header {
     height: 150px;
 }
 
+#mainheader {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
 body {
-    background-color: lightblue;
+    background-image: url('bkimg.jpg');
 }
 
 img {
@@ -15,17 +20,83 @@ img {
     display: block;
 }
 
+.button-obj {
+    margin-left: 200px;
+    padding-top: 1px;
+    position: inline-block;
+}
+
+
+.clicklink {
+    font-size: 17px;
+    font-family: "Courier New", monospace;
+    color: #6600CC;
+}
+
+.clicklink:hover {
+    color: #00FF33;
+    background-color: #660000;
+    cursor: pointer;
+}
+
+.clicklink:active {
+    color: #CCFFFF;
+}
+
 input.placeholder {
     color: lightgrey;
+    text-align: center;
+    font-size: 80px;
 }
-#input{
-    width: 15%;
-    height:80%;
+
+#input {
+    width: 20%;
+    height: 50px;
+    border-radius: 25px;
+    margin-left: 200px;
 }
 
 #results-box {
     background-color: lightgrey;
     width: 80%;
+    opacity: 0.5;
+}
+
+.searchbutton,
+.searchbutton2 {
+    width: 90px;
+    height: 40px;
+    background-color: #000033;
+    border: 1px solid #CCFF33;
+    border-radius: 8px;
+    color: antiquewhite;
+    display: inline-block;
+}
+searchbutton{
+    margin-left: 100px;
+
+}
+
+#play, #pause {
+    width: 90px;
+    height: 40px;
+    bacground-color: #660033;
+    border: 1px solid #66CCFF;
+    border-radius: 8px;
+    color: #0099FF;
+}
+
+#play:hover, #pause:hover {
+    cursor: pointer;
+    background-color: #29B6F6;
+    color: #FF6666;
+}
+
+.searchbutton:hover,
+.searchbutton2:hover {
+    cursor: pointer;
+    background-color: white;
+    color: #FF6666;
 }
 
 #giphy {

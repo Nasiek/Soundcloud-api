@@ -31,7 +31,7 @@
         <div class="welcome">
             <img src="http://moziru.com/images/fluffy-clipart-cloud-transparent-3.jpg">
             <div id="Funcbtns">
-                <h1>
+                <h1 id="mainheader">
                 Sound Cloud - <strong>a soundcloud streaming Site </strong>
             </h1>
             </div>
@@ -45,12 +45,12 @@
     <div class="button-obj">
         <button class="searchbutton" onclick="jukebox.search();">Search Trackname</button>
         <button class="searchbutton2" onclick="jukebox.playnext();">Play Next</button>
-        <button class="searchbutton3" onclick="jukebox.searchtrackid();">Search by Track ID</button>
-    </div>
+<!--         <button class="searchbutton3" onclick="jukebox.searchtrackid();">Search by Track ID</button>
+ -->    </div>
     <button id="play" onclick="jukebox.play();">Play</button>
     <button id="pause" onclick="jukebox.pause();">Pause</button>
-    <button id="stop " onclick="jukebox.stop(); "">Stop</button>
-    </div>
+<!--     <button id="stop " onclick="jukebox.stop(); "">Stop</button>
+ -->    </div>
     
     <div id="results-container">
         <div id="results-box">
@@ -95,13 +95,19 @@
                     console.log(user);
                     ////////////////////////////////////////////
                     var para = document.createElement('li');
+                    var para_id_add = para.setAttribute("id", `${trackid}`);// para.classList.add("clicklink");
+                    var para_albumart= para.setAttribute('data-name',`${albumart}`);
                     var songinfo = document.createTextNode("Name of Track:" + " " + trackname, "Year:");
                     var para2 = document.createElement('li');
                     var songinfo2 = document.createTextNode("Artist:"+""+"Desc:"+ ""+ "Genre:" + ""+ "Released:"+"")
-                    document.getElementById("results-box").appendChild(para);
+                    var para_class = document.getElementById("results-box").appendChild(para).classList.add("clicklink");
+                    
+                    para_class;
                     document.getElementById("results-box").appendChild(para2);
-                    para.innerHTML = "<a id =\"" + trackid +"\"" + "data-name=\""+ albumart+"\"" +" " + "href=\"\">" + " Name of Track:" + trackname + "</a>"
-                    para2.innerHTML ="Artist: "+ "<a href=\""+userurl+"\""+">"+user+"</a>"+" | "+"Desc: "+ desc+" | "+ "Genre: " +genre +" | "+ "Released: "+ released;
+                    para.innerHTML = //"<a class=\"clicklink\""+"id =\"" + trackid +"\"" + "data-name=\""+ albumart+"\"" +" " + "href=\"\">" + 
+                    `Name of Track: ${trackname}` //+ "</a>"
+                    // para.innerHTML = "<a \""+"id =\"" + trackid +"\"" + "data-name=\""+ albumart+"\"" +" " + "href=\"\">" + " Name of Track:" + trackname + "</a>"
+                    para2.innerHTML ="Artist: "+ "<a href=\""+userurl+"\""+" target=\"blank\">"+user+"</a>"+" | "+"Desc: "+ desc+" | "+ "Genre: " +genre +" | "+ "Released: "+ released;
                     //var extradetails = para.innerHTML.appendChild(artwork_url);
                     //console.log("extradetails",extradetails);
 
@@ -109,10 +115,24 @@
                 
                 
             });
-            var generatedsongs = [document.querySelectorAll('results-box a')];
-            generatedsongs.forEach(function() {
-                addEventListener("click", function(event) { event.preventDefault() });
-            });
+            // if (document.getElementById('clicklink')){
+            //     var generatedsong = [document.querySelectorAll('clicklink')];
+            // generatedsong.forEach(function() {
+            //     addEventListener("click", function(event) { !event.preventDefault() });
+            // });
+            // }
+
+
+            // if{
+            var generatedsongs = [document.querySelectorAll('clicklink')];
+            //var generated_description = [document.querySelectorAll('clicklink')];
+            // if (generated_description){
+            //     addEventListener("click", function(event){event.preventDefault()})==false;
+            // }
+
+            // generatedsongs.forEach(function() {
+            //     addEventListener("click", function(event) { event.preventDefault() });
+            // });
             generatedsongs.forEach(function() {
                 addEventListener("click", function(generatedsongs) {
                     console.log("?????????", generatedsongs); //just the mouse event
@@ -140,10 +160,11 @@
                         var changeimage=document.getElementById("giphy").src = generatedsongalbum;
                         console.log(changeimage,"changeimage")
                         changeimage;
-                        // if (document.getElementById("giphy").src = "null" || null){
-                        //     document.getElementById("giphy").src = "http://media.giphy.com/media/l3q2DScd44jwBjpSg/giphy.gif";
-                        // }
-                        // else {changeimage};
+                        console.log("HII",generatedsongalbum);
+                        if (generatedsongalbum == "null" || null){
+                            document.getElementById("giphy").src = "http://media.giphy.com/media/l3q2DScd44jwBjpSg/giphy.gif";
+                        }
+                        else {changeimage};
 
 
                     });
