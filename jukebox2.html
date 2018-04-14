@@ -70,6 +70,7 @@
     var songs = [];
     var currentSong = 0;
     var myPlayer;
+    var player;
     var generatedsong=0;
     var generatedsongs=0;
     var musicobject= {};
@@ -192,7 +193,8 @@
             console.log("currentSong",currentSong);
             console.log("currentSong +=1",currentSong +=1)      
             player.play();    
-            player.on("finish",function(){      
+            myPlayer = player;
+            Myplayer.on("finish",function(){      
         playNext();           
     });  
     });
@@ -200,9 +202,16 @@
 
 
          pause: function pausesong() {
-            streamer = myPlayer;
-            streamer.pause();
+             // var streamer = player.play();
+            
+                myPlayer.pause();
+        //      if (player.play) {
+        //     // myPlayer.pause();
+        //     streamer.pause();
+        // };
+        //     // streamer.pause();
         },
+    
         play: function playsong(){
             myPlayer.play();
         }
