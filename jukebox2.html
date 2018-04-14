@@ -43,10 +43,11 @@
         <input type="text" id="input" placeholder="song, artist, album...">
     </div>
     <div class="button-obj">
-        <button class="searchbutton" onclick="jukebox.search();">Search Trackname</button>
+        <button class="searchbutton" onclick="jukebox.search();">Search</button>
         <button class="searchbutton2" onclick="jukebox.playnext();">Play Next</button>
 <!--         <button class="searchbutton3" onclick="jukebox.searchtrackid();">Search by Track ID</button>
  -->    </div>
+    <div class="playpause">
     <button id="play" onclick="jukebox.play();">Play</button>
     <button id="pause" onclick="jukebox.pause();">Pause</button>
 <!--     <button id="stop " onclick="jukebox.stop(); "">Stop</button>
@@ -69,6 +70,9 @@
     var songs = [];
     var currentSong = 0;
     var myPlayer;
+    var generatedsong=0;
+    var generatedsongs=0;
+    var musicobject= {};
     var jukebox = {
         search: function() {
             var searchterm = document.getElementById("input").value;
@@ -96,7 +100,7 @@
                     ////////////////////////////////////////////
                     var para = document.createElement('li');
                     var para_id_add = para.setAttribute("id", `${trackid}`);// para.classList.add("clicklink");
-                    var para_albumart= para.setAttribute('data-name',`${albumart}`);
+                    var para_albumart = para.setAttribute('data-name',`${albumart}`);
                     var songinfo = document.createTextNode("Name of Track:" + " " + trackname, "Year:");
                     var para2 = document.createElement('li');
                     var songinfo2 = document.createTextNode("Artist:"+""+"Desc:"+ ""+ "Genre:" + ""+ "Released:"+"")
@@ -136,7 +140,8 @@
             generatedsongs.forEach(function() {
                 addEventListener("click", function(generatedsongs) {
                     console.log("?????????", generatedsongs); //just the mouse event
-                    var generatedsongid = generatedsongs.path[0].id; // working now                     
+                    var generatedsongid = generatedsongs.path[0].id
+                    console.log(`generatedsongid`,generatedsongid); // working now                     
                     //console.log("generatedsongid");
                     //var generatedsongalbum = generatedsongs.target.attributes.nodeValue;
                     var generatedsongalbum = generatedsongs.target.dataset.name; // Eureka!
@@ -151,7 +156,7 @@
                     //view.musicobject//.forEach(function{
                         //console.log(*);
                    // })
-                    console.log("trackid", generatedsongid);
+                    console.log("trackid", generatedsongs);
                     SC.stream('/tracks/' + generatedsongid).then(function(player) {
                         console.log(player);
                         player.play();
@@ -165,23 +170,29 @@
                             document.getElementById("giphy").src = "http://media.giphy.com/media/l3q2DScd44jwBjpSg/giphy.gif";
                         }
                         else {changeimage};
-
-
                     });
-
-
-
                 });
             });
-
-        },
+       // console.log(generatedsong,"generatedsonginOBJ")
+       // console.log(this.musicobject,`musicobject`) 
+   },
 
         
         playnext: function playNext() {  
-        SC.stream( '/tracks/' + songs[currentSong].id ).then(function(player){    
+            console.log("1",songs);
+            console.log("2",currentSong);
+            // console.log("3",this.generatedsongs.path[0].id);  
+            console.log("3",generatedsong);
+            console.log("response",musicobject[currentSong]);
+            console.log("musicobject array", musicobject);
+            console.log("4",this.generatedsongs);
+                currentSong += 1; 
+
+        SC.stream( '/tracks/' + musicobject[currentSong].id ).then(function(player){    
+            console.log("currentSong",currentSong);
+            console.log("currentSong +=1",currentSong +=1)      
             player.play();    
             player.on("finish",function(){      
-        currentSong += 1;       
         playNext();           
     });  
     });
